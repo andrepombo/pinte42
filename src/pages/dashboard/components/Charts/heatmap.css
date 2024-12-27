@@ -1,0 +1,37 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins");
+
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+#chart {
+  max-width: 760px;
+  margin: 35px auto;
+  opacity: 0.9;
+}
+
+.custom-tooltip {
+  padding: 10px 10px 3px;
+}
+
+.custom-tooltip .group:nth-child(3) {
+  border-top: 1px solid #e4e4e4;
+}
+
+.group1 {
+  color: black;
+}
+.group2 {
+  color: black;
+}
+
+.group {
+  padding: 2px 0;
+  font-weight: light;
+  color: #111;
+}
+
+.group span {
+  font-style: italic !important;
+  color: #888;
+}
