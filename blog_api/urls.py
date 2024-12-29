@@ -2,7 +2,7 @@ from django.urls import path, re_path
 
 from .views import (PostList, PostDetail, PostListDetailfilter, 
 CreatePost, EditPost,  AdminPostDetail, DeletePost, CardData, CardDataAll,
-CardDataObra, BoardData, UserData, EditBoard, GraphsData, LastUpdate, DeleteCard, HeatFilter,
+CardDataObra, UserData,GraphsData, LastUpdate, DeleteCard, HeatFilter,
 EquipeData, EditEquipe, ColaboradorData, ColaboradorDataObra,ColaboradorDataDetail, ColabDataEquipes, CreateColab, 
 EditColab, DeleteColab, ColabDataObraServices, EquipeDataDetail, DeleteEquipe
 )
@@ -17,8 +17,8 @@ urlpatterns = [
     path('userdata/', UserData.as_view(), name='userdata'),
     
     #Boards
-    path('boarddata/', BoardData.as_view(), name='boardddata'),
-    path('editboard/<id>/', EditBoard.as_view(), name='editboard'),
+    # path('boarddata/', BoardData.as_view(), name='boardddata'),
+    # path('editboard/<id>/', EditBoard.as_view(), name='editboard'),
    
     #Cards
     path('carddata/<slug:slug>/', CardData.as_view(), name='carddata'),

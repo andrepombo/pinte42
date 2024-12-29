@@ -13,6 +13,8 @@ urlpatterns = [
 
     # Blog_API Application
     path('api/', include('blog_api.urls', namespace='blog_api')),
+
+    path(r'api/', include('apps.boards.urls', namespace='boards')),
    
     # User Management
     path('api/user/', include('users.urls', namespace='users')),
