@@ -91,7 +91,7 @@ const handleSubmit = (e) => {
   //if(errorList.length < 1){
   if(validate){
     axiosInstance
-      .post(`user/create/`, {
+      .post(`create/`, {
           email: values.email,
           user_name: values.username,
           password: values.password,

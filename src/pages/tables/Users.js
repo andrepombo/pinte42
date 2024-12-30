@@ -210,7 +210,7 @@ function Users() {
 
   const handleRowDelete = (oldData, resolve) => {
     
-    axiosInstance.delete('user/deleteuser/'+oldData.id)
+    axiosInstance.delete('deleteuser/'+oldData.id)
       .then(res => {
         const dataDelete = [...data];
         const index = oldData.tableData.id;

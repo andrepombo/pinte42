@@ -87,7 +87,7 @@ function loginUser(dispatch, login, password, history, setIsLoading, setError) {
 
 
   axiosInstance
-    .post(`user/login/`, {
+    .post(`login/`, {
         email: login,
         password: password,
     })
@@ -122,7 +122,7 @@ function loginUser(dispatch, login, password, history, setIsLoading, setError) {
   };
 
 function signOut(dispatch, history) {
-  const response = axiosInstance.post('user/logout/blacklist/', {
+  const response = axiosInstance.post('logout/blacklist/', {
     refresh_token: localStorage.getItem('refresh_token'),
   });
   localStorage.removeItem('access_token');
