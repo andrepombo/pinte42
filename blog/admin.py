@@ -14,7 +14,7 @@ class CardAdmin(admin.ModelAdmin):
 
 @admin.register(models.Board)
 class BoardAdmin(admin.ModelAdmin):
-    list_display = ('id', 'board', 'user')
+    list_display = ('id', 'board', 'user','status')
 
 @admin.register(models.Equipe)
 class EquipeAdmin(admin.ModelAdmin):

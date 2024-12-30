@@ -20,9 +20,9 @@ class BoardData(generics.ListAPIView):
 
 
 
-class EditBoard(generics.UpdateAPIView):
+class UpdateBoard(generics.UpdateAPIView):
     """A dummy docstring."""
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = [permissions.IsAuthenticated]
     serializer_class = BoardUpdateSerializer
     # serializer_class = BoardSerializer
     queryset = Board.objects.all()

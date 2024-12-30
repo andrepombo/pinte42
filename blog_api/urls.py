@@ -1,10 +1,9 @@
 from django.urls import path, re_path
 
 from .views import (PostList, PostDetail, PostListDetailfilter, 
-CreatePost, EditPost,  AdminPostDetail, DeletePost, CardData, CardDataAll,
-CardDataObra, UserData,GraphsData, LastUpdate, DeleteCard, HeatFilter,
-EquipeData, EditEquipe, ColaboradorData, ColaboradorDataObra,ColaboradorDataDetail, ColabDataEquipes, CreateColab, 
-EditColab, DeleteColab, ColabDataObraServices, EquipeDataDetail, DeleteEquipe
+CreatePost, EditPost,  AdminPostDetail, DeletePost, 
+UserData,GraphsData, LastUpdate, HeatFilter, ColaboradorData, ColaboradorDataObra,ColaboradorDataDetail, ColabDataEquipes, CreateColab, 
+EditColab, DeleteColab, ColabDataObraServices
 )
 
 from rest_framework.routers import DefaultRouter
@@ -15,22 +14,7 @@ urlpatterns = [
     
     #Users
     path('userdata/', UserData.as_view(), name='userdata'),
-    
-    #Boards
-    # path('boarddata/', BoardData.as_view(), name='boardddata'),
-    # path('editboard/<id>/', EditBoard.as_view(), name='editboard'),
-   
-    #Cards
-    path('carddata/<slug:slug>/', CardData.as_view(), name='carddata'),
-    path('carddataall/<slug:slug>/', CardDataAll.as_view(), name='carddataall'),
-    path('carddataobra/<slug:slug2>/<slug:slug>/', CardDataObra.as_view(), name='carddataobra'),
-    path('deletecard/<id>/', DeleteCard.as_view(), name="deletecard"),
-    
-    #Equipes
-    path('equipesdata/<slug:slug>/', EquipeData.as_view(), name='equipesdata'),
-    path('equipedatadetail/<obra>/<slug:slug2>/', EquipeDataDetail.as_view(), name='equipedatadetail'),
-    path('editequipe/<int:pk>/', EditEquipe.as_view(), name='editequipe'),
-    path('deleteequipe/<int:pk>/', DeleteEquipe.as_view(), name='deleteequipe'),
+      
     
     #Graphs
     path('graphsdata/<slug:slug>/', GraphsData.as_view(), name='graphsdata'),
@@ -38,10 +22,7 @@ urlpatterns = [
     # path('heatdata/<int:pk>/', HeatData.as_view(), name='heatdata'),
     # path('piedata/<int:pk>/', PieData.as_view(), name='piedata'),
 
-    #Epis
-    #path('epis/<slug:slug>/', EpiData.as_view(), name='epidata'),
-    # re_path(r"^epis/(?P<slug>[\w|\W]+)/$", EpiData.as_view(), name="epidata"),
-    # path('boardepis/', BoardEpiData.as_view(), name='boardepidata'),
+  
    
     #Colaboradores
     path('colabdata/', ColaboradorData.as_view(), name='colabdata'),

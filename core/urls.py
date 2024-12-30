@@ -15,6 +15,10 @@ urlpatterns = [
     path('api/', include('blog_api.urls', namespace='blog_api')),
 
     path(r'api/', include('apps.boards.urls', namespace='boards')),
+    path(r'api/', include('apps.teams.urls', namespace='teams')),
+    path(r'api/', include('apps.cards.urls', namespace='cards')),
+   
+   
    
     # User Management
     path('api/user/', include('users.urls', namespace='users')),
