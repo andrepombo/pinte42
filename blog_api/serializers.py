@@ -1,8 +1,8 @@
 from rest_framework import serializers, fields
 from blog.models import Post, Card, Board, UpdateData, Equipe, Colaborador
 from django.conf import settings
-from users.models import NewUser
-from users.serializers import CustomUserSerializer
+from apps.users.models import NewUser
+from apps.users.serializers import CustomUserSerializer
 
 
 class PostSerializer(serializers.ModelSerializer):

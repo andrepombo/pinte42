@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from blog.models import Board
 from django.conf import settings
-from users.models import NewUser
+from apps.users.models import NewUser
 
 
 

@@ -30,6 +30,4 @@ class ColaboradorAdmin(admin.ModelAdmin):
 class UpdateAdmin(admin.ModelAdmin):
     list_display = ('id','last_update', 'trello_request', 'data_input')
 
-#admin.site.register(models.UpdateData)
 
-#admin.site.register(models.Category)
