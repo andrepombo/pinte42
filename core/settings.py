@@ -5,35 +5,20 @@ import django_on_heroku
 import dj_database_url
 import environ
 
-#teste1
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Initialise environment variables
 env = environ.Env()
 environ.Env.read_env()
 
-# SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = os.environ.get('SECRET_KEY')
 SECRET_KEY = env('SECRET_KEY')
 
-
-# SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = os.environ.get('DEBUG')
 DEBUG = env('DEBUG')
-
-#DEBUG = False
-
-# ALLOWED_HOSTS = []
-
-# if not DEBUG:
-#     ALLOWED_HOSTS += [os.environ.get('DJANGO_ALLOWED_HOST')]
 
 ALLOWED_HOSTS = ['pinte4.herokuapp.com', 'localhost', '127.0.0.1', '0.0.0.0', "localhost:3000", 'pinteapp.com.br'] 
 
-
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',#
@@ -43,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    'drf_yasg',
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
@@ -71,9 +57,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-# SECURE_SSL_REDIRECT = True
 
 ROOT_URLCONF = 'core.urls'
 
@@ -120,14 +103,8 @@ WSGI_APPLICATION = 'core.wsgi.application'
 #     'https://localhost:3000',
 # ]
 
-
 # Option 2
 CORS_ORIGIN_ALLOW_ALL = True
-
-# Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
-
 
 # DATABASES = {
 #     'default': {
@@ -135,9 +112,6 @@ CORS_ORIGIN_ALLOW_ALL = True
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
-
-
-#heroku pg:psql postgresql-transparent-02164 --app pinte4
 
 # DATABASES = {
 #     'default': {
@@ -150,7 +124,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 #     }
 # }
 
-#teste
+
 DATABASES = {
     'dev': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -186,9 +160,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/3.1/topics/i18n/
-
 LANGUAGE_CODE = 'pt-br'
 
 TIME_ZONE = 'America/Sao_Paulo'
@@ -209,12 +180,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'build', 'staticfiles')
+STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'build/static')
+    os.path.join(BASE_DIR, 'static')
 ]
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' 
@@ -229,19 +199,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
     ],
-    # 'DEFAULT_AUTHENTICATION_CLASSES': [
-    #     'rest_framework.authentication.BasicAuthentication',
-    #     'rest_framework.authentication.SessionAuthentication',
-    # ]
-    
 }
-
-# Permissions:
-# AllowAny
-# IsAuthenticated
-# IsAdminUser
-# IsAuthenticatedOrReadOnly
-
 
 # Custom user model
 AUTH_USER_MODEL = "users.NewUser"
@@ -264,11 +222,11 @@ SIMPLE_JWT = {
 }
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 MEDIA_URL = '/media/'
 
 django_on_heroku.settings(locals())
 
 options = DATABASES['default'].get('OPTIONS', {})
-
 
 options.pop('sslmode', None)
