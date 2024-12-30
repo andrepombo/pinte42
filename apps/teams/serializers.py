@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from blog.models import Equipe, Colaborador
+from apps.teams.models import Equipe, Colaborador
 
 class EquipeSerializer(serializers.ModelSerializer):
 

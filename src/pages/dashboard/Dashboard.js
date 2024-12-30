@@ -74,7 +74,7 @@ export default function Dashboard(props) {
 
   return (
     <>
-     <PageTitle title={"Dashboard"} time = {'Última Sincronização: ' + dateF}  
+     <PageTitle title={"Dashboardd"} time = {'Última Sincronização: ' + dateF}  
       // button={<Button
       //   //component={Link} to={"upcommand/"}
       //   //onClick={callYourAPI}

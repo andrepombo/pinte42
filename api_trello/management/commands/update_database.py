@@ -3,7 +3,12 @@ from . import apiTrello
 
 from django.core.management import BaseCommand
 import csv
-from blog.models import Board, Card, UpdateData, Equipe
+from apps.boards.models import Board
+from apps.cards.models import Card
+from apps.update.models import UpdateData
+from apps.teams.models import Equipe
+
+
 
 
 from schedule import Scheduler

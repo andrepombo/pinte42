@@ -5,21 +5,20 @@ from rest_framework.documentation import include_docs_urls
 from rest_framework_simplejwt.views import TokenRefreshView
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import TemplateView
 
 urlpatterns = [
     # Project URLs
     path('admin/', admin.site.urls),
-    path('', include('blog.urls', namespace='blog')),
-
-  
-    path('api/', include('blog_api.urls', namespace='blog_api')),
-
+    
+    path('', TemplateView.as_view(template_name="index.html")),
     path(r'api/', include('apps.boards.urls', namespace='boards')),
     path(r'api/', include('apps.teams.urls', namespace='teams')),
     path(r'api/', include('apps.cards.urls', namespace='cards')),
     path(r'api/', include('apps.graphs.urls', namespace='graphs')),
     path(r'api/', include('apps.colabs.urls', namespace='colabs')),
     path(r'api/', include('apps.users.urls', namespace='users')),
+    path(r'api/', include('apps.update.urls', namespace='updates')),
 
     
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),

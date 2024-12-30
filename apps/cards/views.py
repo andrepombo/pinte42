@@ -1,6 +1,6 @@
 from rest_framework import filters, generics, permissions
 from .serializers import CardSerializer
-from blog.models import Card
+from apps.cards.models import Card
                         
 
 

@@ -1,5 +1,8 @@
 from rest_framework import serializers, fields
-from blog.models import Card, Equipe, Colaborador
+from apps.colabs.models import Colaborador
+from apps.cards.models import Card
+from apps.teams.models import Equipe
+
 
 
 

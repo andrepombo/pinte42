@@ -1,5 +1,5 @@
 from rest_framework import filters, generics, permissions
-from blog.models import Board
+from apps.boards.models import Board
 from .serializers import BoardSerializer, BoardUpdateSerializer
 from rest_framework.response import Response
 

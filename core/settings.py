@@ -42,14 +42,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog',
-    'blog_api',
-    'apps.users',
     'corsheaders',
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
-    'whitenoise.runserver_nostatic'
+    'whitenoise.runserver_nostatic',
+
+    # Apps local
+    'apps.boards',
+    'apps.cards',
+    'apps.colabs',
+    'apps.graphs',
+    'apps.teams',
+    'apps.update',
+    'apps.users',
 
 ]
 

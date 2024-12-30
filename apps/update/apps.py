@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class CardsConfig(AppConfig):
+class UpdateConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'apps.cards'
+    name = 'apps.update'

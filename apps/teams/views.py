@@ -1,5 +1,5 @@
 from rest_framework import filters, generics, permissions
-from blog.models import Equipe
+from apps.teams.models import Equipe
 from .serializers import EquipeSerializer
 from rest_framework.response import Response
 

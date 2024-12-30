@@ -57,4 +57,17 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 
 
 
+class UserData(generics.ListAPIView):
+    """A dummy docstring."""
+    permission_classes = [permissions.IsAdminUser]
+    serializer_class = CustomUserSerializer
+
+    def get_queryset(self):
+        """A dummy docstring."""
+        user = self.request.user
+        # return NewUser.objects.filter(Q(is_staff = True) | Q(email = 'david@andre.com')   )
+        return NewUser.objects.all()
+
+
+
 

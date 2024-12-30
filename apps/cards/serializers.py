@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from blog.models import Card
+from apps.cards.models import Card
 
 class CardSerializer(serializers.ModelSerializer):
     """A dummy docstring."""

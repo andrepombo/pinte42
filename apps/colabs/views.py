@@ -3,7 +3,9 @@ from rest_framework.views import APIView
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
 from .serializers import  CardSerializer, ColaboradorSerializer,ColabEquipesSerializer
-from blog.models import Card, Equipe, Colaborador
+from apps.colabs.models import Colaborador
+from apps.cards.models import Card
+from apps.teams.models import Equipe
 from django.db.models import Q
 
 

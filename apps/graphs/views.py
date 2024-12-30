@@ -1,7 +1,7 @@
-from rest_framework import filters, generics, permissions
+from rest_framework import generics, permissions
 from rest_framework.response import Response
 from django_pandas.io import read_frame
-from blog.models import Card
+from apps.cards.models import Card
 from . import graphs_process
 
 

@@ -182,21 +182,7 @@ function Cards() {
         })
     }, [])
 
-    // useEffect(() => { 
-    //   axiosInstance.get('update/')
-    //       .then(res => {               
-    //           setDataUpdate(res.data[0]['last_update'])
-    //       })
-    //       .catch(error=>{
-    //           console.log("Error")
-    //       })
-    //   }, [])
-
-    //   var date = new Date(data_update)
     
-    //   const dateF = date.toLocaleString("pt-BR")
-    
-      
     
 
   // const handleRowUpdate = (newData, oldData, resolve) => {

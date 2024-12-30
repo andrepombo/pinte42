@@ -2,19 +2,33 @@ import requests
 import json 
 import pandas as pd
 import threading
+from django.utils import timezone
 
-class trelloepi:
+import environ
+
+from datetime import date, timedelta
+
+# Initialise environment variables
+env = environ.Env()
+environ.Env.read_env()
+
+class trello:
 
     def __init__ (self):
-        # Original
-        # self.key = '7a91b2250265cdb438f5e52de573e6e7'
-        # self.token = '401d3b2be397dca5ccfade6ff24a958595e686f9d133bc43b023332cb144e448'
+        
+        self.key = '7a91b2250265cdb438f5e52de573e6e7'
+        self.token = '401d3b2be397dca5ccfade6ff24a958595e686f9d133bc43b023332cb144e448'
 
+        # Idibra
         # self.key = 'b03e7013a271376771dd689c8eba4891'
         # self.token = '90ef0500efa507f3c95d2aea6928f6ae0c6ffab1bbfdea222fda7f38335eb203'
+       
+        self.day = date.today() - timedelta(days=5)
+        #yesterday = yesterday.strftime('%m%d%y')
 
-        self.key = 'e6bce68de5dbc076803476188a906594'
-        self.token ='631a457099e9c6645fed905e8f2e4f51d0c576a75c74384bbb247bdbb4e34d82'
+    # def __init__ (self):
+    #     self.key = env('KEY')
+    #     self.token = env('TOKEN')
 
 
     def getAllBoards2(self):
@@ -32,7 +46,8 @@ class trelloepi:
 
         call = requests.get(url , headers=headers, params=query)
         boards = json.loads(call.text)
-        #boards = boards[0:1]
+        boards = boards[0:4]
+        print(len(boards))
 
         cardIds = []
         cardBoards = []
@@ -40,7 +55,6 @@ class trelloepi:
         #cardActive =[]
         cardUrls =[]
         checkName = []
-        
         item1 = []
         item1_status = []
         item1_user = [] 
@@ -62,29 +76,9 @@ class trelloepi:
         item5_user = []
         item5_date = []
 
-        item6 = []
-        item6_status = []
-        item6_user = [] 
-        item6_date = []
-        item7 = []
-        item7_status = []
-        item7_user = []
-        item7_date = []
-        item8 = []
-        item8_status = []
-        item8_user = [] 
-        item8_date = []
-        item9 = []
-        item9_status = [] 
-        item9_user = [] 
-        item9_date = []
-        item10 = []
-        item10_status = [] 
-        item10_user = []
-        item10_date = []
-
         
         for board in boards:
+            
             #url = 'https://api.trello.com/1/boards/' + board['id'] + '/cards' + '?fields=name&url=true&member_fields=fullName'
             url = 'https://api.trello.com/1/boards/' + board['id'] + '/cards' 
            
@@ -96,16 +90,22 @@ class trelloepi:
             query = {
                 'key': self.key,
                 'token': self.token,
-                #'modifiedSince': '2022-12-08T15:58:36.000Z' 
+                #'modifiedSince': '2022-11-22T15:58:36.000Z' 
+                #'modifiedSince': self.day 
             }
 
             call = requests.get(url , headers=headers, params=query)
             dic = json.loads(call.text)
             
             print(board['name'])
-            print (len(dic))
-
+            print(len(dic))
+            #print(len(cardIds),len(cardBoards),len(cardNames),len(cardUrls))
+            
+            #dic = dic[10:15]
+            
+            start_time1 = timezone.now()
             for card in dic:
+                
                 #url = 'https://trello.com/1/cards/' + card['id'] + '/checklists' + '?fields=name&state=true&checkItem_fields=name&state'
                 url = 'https://trello.com/1/cards/' + card['id'] + '/checklists' 
             
@@ -116,9 +116,13 @@ class trelloepi:
                 query = {
                 'key': self.key,
                 'token': self.token
-            }
+                }   
+
                 call = requests.get(url , headers=headers, params=query)
+                
+                #if call:
                 checks = json.loads(call.text)
+                #print(checks)
 
                 url2 = 'https://trello.com/1/cards/' + card['id'] + '/actions' 
                     
@@ -129,8 +133,8 @@ class trelloepi:
                     }
             
                 call2 = requests.get(url2 , headers=headers, params=query2)
-                actions = json.loads(call2.text)
-                #print(card['name'])
+                if call2:
+                    actions = json.loads(call2.text)
 
                 #print(card['id'])
                 if checks:
@@ -168,12 +172,12 @@ class trelloepi:
                                 item1_user.append(None)
                             
                             try:
-                                item2.append(item['checkItems'][1]['name'])
-                                item2_status.append(item['checkItems'][1]['state'])
+                                item2.append(item['checkItems'][4]['name'])
+                                item2_status.append(item['checkItems'][4]['state'])
                                 first = True
                                 checkItems =[]
                                 for action in actions:
-                                    if item['checkItems'][1]['id'] == action['data']['checkItem']['id']:
+                                    if item['checkItems'][4]['id'] == action['data']['checkItem']['id']:
                                         
                                         if first:
                                             first = False
@@ -181,7 +185,7 @@ class trelloepi:
                                             item2_date.append(action['date'])
                                             checkItems.append(action['data']['checkItem']['id'])
                                             
-                                if item['checkItems'][1]['id'] not in checkItems:
+                                if item['checkItems'][4]['id'] not in checkItems:
                                     item2_user.append(None)  
                                     item2_date.append(None)
                                         
@@ -192,12 +196,12 @@ class trelloepi:
                             
                            
                             try:
-                                item3.append(item['checkItems'][2]['name'])
-                                item3_status.append(item['checkItems'][2]['state'])
+                                item3.append(item['checkItems'][1]['name'])
+                                item3_status.append(item['checkItems'][1]['state'])
                                 first = True
                                 checkItems =[]
                                 for action in actions:
-                                    if item['checkItems'][2]['id'] == action['data']['checkItem']['id']:
+                                    if item['checkItems'][1]['id'] == action['data']['checkItem']['id']:
                                         
                                         if first:
                                             first = False
@@ -205,7 +209,7 @@ class trelloepi:
                                             item3_date.append(action['date'])
                                             checkItems.append(action['data']['checkItem']['id'])
                                             
-                                if item['checkItems'][2]['id'] not in checkItems:
+                                if item['checkItems'][1]['id'] not in checkItems:
                                     item3_user.append(None)  
                                     item3_date.append(None)
                                         
@@ -233,19 +237,18 @@ class trelloepi:
                                 if item['checkItems'][3]['id'] not in checkItems:
                                     item4_user.append(None)  
                                     item4_date.append(None)
-                                        
                             except IndexError:
                                 item4.append(None)
                                 item4_status.append(None)
                                 item4_user.append(None)
 
                             try:
-                                item5.append(item['checkItems'][4]['name'])
-                                item5_status.append(item['checkItems'][4]['state'])
+                                item5.append(item['checkItems'][2]['name'])
+                                item5_status.append(item['checkItems'][2]['state'])
                                 checkItems =[]
                                 first = True
                                 for action in actions:
-                                    if item['checkItems'][4]['id'] == action['data']['checkItem']['id']:
+                                    if item['checkItems'][2]['id'] == action['data']['checkItem']['id']:
                                         
                                         if first:
                                             first = False
@@ -253,165 +256,53 @@ class trelloepi:
                                             item5_date.append(action['date'])
                                             checkItems.append(action['data']['checkItem']['id'])
                                             
-                                if item['checkItems'][4]['id'] not in checkItems:
-                                    item5_user.append(None)          
-                                    item5_date.append(None)
-
+                                    
+                                if item['checkItems'][2]['id'] not in checkItems:
+                                    item5_user.append(None)  
+                                    item5_date.append(None)        
+                                        
                             except IndexError:
                                 item5.append(None)
                                 item5_status.append(None)
                                 item5_user.append(None)
 
-                            try:
-                                item6.append(item['checkItems'][5]['name'])
-                                item6_status.append(item['checkItems'][5]['state'])
-                                first = True
-                                checkItems =[]
-                                for action in actions:
-                                    if item['checkItems'][5]['id'] == action['data']['checkItem']['id']:
-                                        
-                                        if first:
-                                            first = False
-                                            item6_user.append(action['memberCreator']['username'])
-                                            item6_date.append(action['date'])
-                                            checkItems.append(action['data']['checkItem']['id'])
-
-                                if item['checkItems'][5]['id'] not in checkItems:
-                                    item6_user.append(None)  
-                                    item6_date.append(None)
-                                    
-
-                            except IndexError:
-                                item6.append(None)
-                                item6_status.append(None)
-                                item6_user.append(None)
-                            
-                            try:
-                                item7.append(item['checkItems'][6]['name'])
-                                item7_status.append(item['checkItems'][6]['state'])
-                                first = True
-                                checkItems =[]
-                                for action in actions:
-                                    if item['checkItems'][6]['id'] == action['data']['checkItem']['id']:
-                                        
-                                        if first:
-                                            first = False
-                                            item7_user.append(action['memberCreator']['username'])
-                                            item7_date.append(action['date'])
-                                            checkItems.append(action['data']['checkItem']['id'])
-                                            
-                                if item['checkItems'][6]['id'] not in checkItems:
-                                    item7_user.append(None)  
-                                    item7_date.append(None)
-                                        
-                            except IndexError:
-                                item7.append(None)
-                                item7_status.append(None)
-                                item7_user.append(None)
-                            
-                           
-                            try:
-                                item8.append(item['checkItems'][7]['name'])
-                                item8_status.append(item['checkItems'][7]['state'])
-                                first = True
-                                checkItems =[]
-                                for action in actions:
-                                    if item['checkItems'][7]['id'] == action['data']['checkItem']['id']:
-                                        
-                                        if first:
-                                            first = False
-                                            item8_user.append(action['memberCreator']['username'])
-                                            item8_date.append(action['date'])
-                                            checkItems.append(action['data']['checkItem']['id'])
-                                            
-                                if item['checkItems'][7]['id'] not in checkItems:
-                                    item8_user.append(None)  
-                                    item8_date.append(None)
-                                        
-                            except IndexError:
-                                item8.append(None)
-                                item8_status.append(None)
-                                item8_user.append(None)
-                               
                             
                             
-                            try:
-                                item9.append(item['checkItems'][8]['name'])
-                                item9_status.append(item['checkItems'][8]['state'])
-                                checkItems =[]
-                                first = True
-                                for action in actions:
-                                    if item['checkItems'][8]['id'] == action['data']['checkItem']['id']:
-                                        
-                                        if first:
-                                            first = False
-                                            item9_user.append(action['memberCreator']['username'])
-                                            item9_date.append(action['date'])
-                                            checkItems.append(action['data']['checkItem']['id'])
-                                            
-                                if item['checkItems'][8]['id'] not in checkItems:
-                                    item9_user.append(None)  
-                                    item9_date.append(None)
-                                        
-                            except IndexError:
-                                item9.append(None)
-                                item9_status.append(None)
-                                item9_user.append(None)
-
-                            try:
-                                item10.append(item['checkItems'][9]['name'])
-                                item10_status.append(item['checkItems'][9]['state'])
-                                checkItems =[]
-                                first = True
-                                for action in actions:
-                                    if item['checkItems'][9]['id'] == action['data']['checkItem']['id']:
-                                        
-                                        if first:
-                                            first = False
-                                            item10_user.append(action['memberCreator']['username'])
-                                            item10_date.append(action['date'])
-                                            checkItems.append(action['data']['checkItem']['id'])
-                                            
-                                if item['checkItems'][9]['id'] not in checkItems:
-                                    item10_user.append(None)          
-                                    item10_date.append(None)
-
-                            except IndexError:
-                                item10.append(None)
-                                item10_status.append(None)
-                                item10_user.append(None)
-
-                            
-                            
-
                         else:
-                            item1.append(None), item2.append(None),item3.append(None), item4.append(None),item5.append(None), item6.append(None), item7.append(None),item8.append(None), item9.append(None),item10.append(None),      
-                            item1_status.append(None),item2_status.append(None),item3_status.append(None),item4_status.append(None),item5_status.append(None),item6_status.append(None),item7_status.append(None),item8_status.append(None),item9_status.append(None),item10_status.append(None),
-                            item1_user.append(None),item2_user.append(None),item3_user.append(None),item4_user.append(None),item5_user.append(None), item6_user.append(None),item7_user.append(None),item8_user.append(None),item9_user.append(None),item10_user.append(None),
-                            item1_date.append(None),item2_date.append(None),item3_date.append(None),item4_date.append(None),item5_date.append(None),item6_date.append(None),item7_date.append(None),item8_date.append(None),item9_date.append(None),item10_date.append(None),
+                            # item1.append(None), item2.append(None),item3.append(None), item4.append(None),item5.append(None)       
+                            # item1_status.append(None),item2_status.append(None),item3_status.append(None),item4_status.append(None),item5_status.append(None),
+                            # item1_user.append(None),item2_user.append(None),item3_user.append(None),item4_user.append(None),item5_user.append(None)
+
+                            item1.append(None), item2.append(None),item3.append(None), item4.append(None),item5.append(None)       
+                            item1_status.append(None),item2_status.append(None),item3_status.append(None),item4_status.append(None),item5_status.append(None),
+                            item1_user.append(None),item2_user.append(None),item3_user.append(None),item4_user.append(None),item5_user.append(None),
+                            item1_date.append(None),item2_date.append(None),item3_date.append(None),item4_date.append(None),item5_date.append(None),
+            
+            end_time1 = timezone.now()
+            seconds = ((end_time1-start_time1).total_seconds()) 
+            print(f"Trello request for cards  took: {(seconds)} seconds.")
                                
+      
 
+        data = {'idboard': cardIds,'board': cardBoards, 'card': cardNames,'cardUrl': cardUrls,'checklist': checkName, 
+        "item1": item1, "i1_status": item1_status, 'i1_user':item1_user, 'i1_date': item1_date,
+        "item2": item2, "i2_status": item2_status, 'i2_user':item2_user, 'i2_date': item2_date,
+        "item3": item3, "i3_status": item3_status, 'i3_user':item3_user, 'i3_date': item3_date, 
+        "item4": item4, "i4_status": item4_status, 'i4_user':item4_user, 'i4_date': item4_date, 
+        "item5": item5, "i5_status": item5_status, 'i5_user':item4_user, 'i5_date': item4_date, 
+        }
 
-        data = {'idboard': cardIds, 'board': cardBoards, 'card': cardNames,'cardUrl': cardUrls,'checklist': checkName, 
-        "item1": item1, "i1_status": item1_status, 'item1_user':item1_user, 'item1_date': item1_date,
-        "item2": item2, "i2_status": item2_status, 'item2_user':item2_user, 'item2_date': item2_date,
-        "item3": item3, "i3_status": item3_status, 'item3_user':item3_user, 'item3_date': item3_date, 
-        "item4": item4, "i4_status": item4_status, 'item4_user':item4_user, 'item4_date': item4_date, 
-        "item5": item5, "i5_status": item5_status, 'item5_user':item5_user, 'item5_date': item5_date,
-        "item6": item6, "i6_status": item6_status, 'item6_user':item6_user, 'item6_date': item6_date,
-        "item7": item7, "i7_status": item7_status, 'item7_user':item7_user, 'item7_date': item7_date,
-        "item8": item8, "i8_status": item8_status, 'item8_user':item8_user, 'item8_date': item8_date, 
-        "item9": item9, "i9_status": item9_status, 'item9_user':item9_user, 'item9_date': item9_date, 
-        "item10": item10, "i10_status": item10_status, 'item10_user':item10_user, 'item10_date': item10_date,}
+        # for i in data:
+        #     print(i)
+        #     print(len(i))
+
+        
 
         df = pd.DataFrame(data)
        
         return df
 
-       
-        
-
-       
+        print(item2, item2_user)
 
 
 
