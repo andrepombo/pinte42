@@ -19,7 +19,7 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [s.strip() for s in v.spl
                        default='')
 
 INSTALLED_APPS = [
-    'django.contrib.admin',#
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -139,35 +139,9 @@ print(DATABASES['default'])
 
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 9000
 
-
-# Password validation
-# https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
-
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
-
-
 LANGUAGE_CODE = 'pt-br'
 
 TIME_ZONE = 'America/Sao_Paulo'
-
-# DATE_FORMAT = "d/m/Y"
-
-# DATE_INPUT_FORMATS = ['%d/%m/%Y']
-
-#DATETIME_FORMAT = '%d-%m-%Y %H:%M:%S' 
 
 USE_I18N = True
 
