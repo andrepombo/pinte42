@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from apps.cards.models import Card
 
+
 class CardSerializer(serializers.ModelSerializer):
     """A dummy docstring."""
 
@@ -10,6 +11,7 @@ class CardSerializer(serializers.ModelSerializer):
         """A dummy docstring."""
         fields = "__all__"
         model = Card
+        ref_name = "CardSerializer_Cards"
 
 
 

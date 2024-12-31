@@ -1,9 +1,7 @@
-from rest_framework import serializers, fields
+from rest_framework import serializers
 from apps.colabs.models import Colaborador
 from apps.cards.models import Card
 from apps.teams.models import Equipe
-
-
 
 
 class ColaboradorSerializer(serializers.ModelSerializer):
@@ -34,6 +32,7 @@ class CardSerializer(serializers.ModelSerializer):
         """A dummy docstring."""
         fields = "__all__"
         model = Card
+        ref_name = "CardSerializer_Colabs"
 
 
 
