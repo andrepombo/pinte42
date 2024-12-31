@@ -6,7 +6,7 @@ from rest_framework_simplejwt.views import TokenRefreshView
 from rest_framework import permissions
 from django.conf import settings
 from django.conf.urls.static import static
-from django.views.generic import TemplateView
+
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -29,8 +29,6 @@ urlpatterns = [
     path(r'api/', include('apps.colabs.urls', namespace='colabs')),
     path(r'api/', include('apps.users.urls', namespace='users')),
     path(r'api/', include('apps.update.urls', namespace='updates')),
-
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
    
     re_path(r'^(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     re_path(r'^$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),

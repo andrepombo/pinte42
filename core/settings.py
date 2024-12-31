@@ -3,22 +3,20 @@ from datetime import timedelta
 import os
 import django_on_heroku
 import dj_database_url
-import environ
+from decouple import AutoConfig
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Initialise environment variables
-env = environ.Env()
-environ.Env.read_env()
+config = AutoConfig(search_path=f'{BASE_DIR}/.env')
 
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = config('SECRET_KEY')
 
-DEBUG = env('DEBUG')
+DEBUG = config('DEBUG')
 
-ALLOWED_HOSTS = ['pinte4.herokuapp.com', 'localhost', '127.0.0.1', '0.0.0.0', "localhost:3000", 'pinteapp.com.br'] 
-
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [s.strip() for s in v.split(',')],
+                       default='')
 
 INSTALLED_APPS = [
     'django.contrib.admin',#
